@@ -1,0 +1,21 @@
+<ivy-module version="2.0">
+    <info organisation="prom" module="XLogModifier" revision="latest">
+    	<description>
+    		Version 0.1.0
+    	</description>
+    </info>
+    <configurations>
+   		<conf name="default" extends="lib" />
+   		<conf name="lib" />
+	</configurations>  
+    <dependencies defaultconf="default">
+		<dependency org="prom" name="ProM-Plugins" rev="latest" changing="true" transitive="true" />
+		<dependency org="prom" name="Widgets" rev="latest" changing="true" transitive="true" />
+		<dependency conf="lib->default" org="prom-libs" name="OpenXES" rev="20211004" transitive="false" />
+		
+		<!-- Needed for apache DateFormatUtils -->
+		<dependency org="prom" name="YAWL" rev="latest" changing="true" transitive="true" />
+		<!-- Needed for FakeProgress -->
+		<dependency org="prom" name="Statechart" rev="latest" changing="true" transitive="true" />
+    </dependencies>
+</ivy-module>

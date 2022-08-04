@@ -1,0 +1,7 @@
+bin
+dist
+bindist
+doc
+classes
+*.class
+.settings
