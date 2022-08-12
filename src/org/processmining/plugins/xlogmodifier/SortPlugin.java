@@ -18,7 +18,7 @@ public class SortPlugin {
 
 	@UITopiaVariant(affiliation = "Utrecht University", author = "B.N. Janssen", email = "b.n.janssen@students.uu.nl")
 	@PluginVariant(
-	    variantLabel = "Retain log attributes using a dialog",
+	    variantLabel = "Sort log event using a dialog",
 	    requiredParameterLabels = { 0 }
 	)
 	public void sort(UIPluginContext context, XLog log) {
@@ -30,7 +30,7 @@ public class SortPlugin {
 
 	@UITopiaVariant(affiliation = "Utrecht University", author = "B.N. Janssen", email = "b.n.janssen@students.uu.nl")
 	@PluginVariant(
-	    variantLabel = "Retain log attributes given selected parameters",
+	    variantLabel = "Sort log events given selected parameters",
 	    requiredParameterLabels = { 0, 1 }
 	)
 	public void sort(PluginContext context, XLog log, SortParameters params) {

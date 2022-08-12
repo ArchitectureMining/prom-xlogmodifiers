@@ -38,7 +38,7 @@ public class SortParameters {
 		return new SortParametersDialog(log).show(context);
 	}
 
-	public static class SortParametersDialog extends XLogModifierDialog<SortParameters> {
+	public static class SortParametersDialog extends ModifierDialog<SortParameters> {
 		protected final ProMPropertiesPanel Panel;
 		protected final List<ProMComboBox<String>> Selections;
 

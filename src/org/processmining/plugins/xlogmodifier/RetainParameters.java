@@ -44,7 +44,7 @@ public class RetainParameters {
 		return new RetainParametersDialog(log).show(context);
 	}
 
-	public static class RetainParametersDialog extends XLogModifierDialog<RetainParameters> {
+	public static class RetainParametersDialog extends ModifierDialog<RetainParameters> {
 		protected final HashMap<String, JCheckBox> LogAttrs, TraceAttrs, EventAttrs;
 		protected final JComponent MainComponent;
 

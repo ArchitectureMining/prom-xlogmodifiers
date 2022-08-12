@@ -42,7 +42,7 @@ public class RenameParameters {
 		return new RenameParametersDialog(log).show(context);
 	}
 
-	public static class RenameParametersDialog extends XLogModifierDialog<RenameParameters> {
+	public static class RenameParametersDialog extends ModifierDialog<RenameParameters> {
 		protected final Map<String, ProMTextField> LogInput, TraceInput, EventInput;
 		protected final JComponent MainComponent;
 

@@ -6,10 +6,10 @@ import org.deckfour.uitopia.api.event.TaskListener.InteractionResult;
 import org.processmining.contexts.uitopia.UIPluginContext;
 import org.processmining.framework.util.ui.widgets.ProMPropertiesPanel;
 
-public abstract class XLogModifierDialog<P> {
+public abstract class ModifierDialog<P> {
 	private final P Parameters;
 	
-	public XLogModifierDialog(P parameters) {
+	public ModifierDialog(P parameters) {
 		this.Parameters = parameters;
 	}
 	
@@ -31,7 +31,6 @@ public abstract class XLogModifierDialog<P> {
 	public abstract String getTitle();
 	public abstract void updateParameters();
 	public abstract JComponent visualize();
-	
 	
 	public static ProMPropertiesPanel newProMPropertiesPanel(String title) {
 		final ProMPropertiesPanel props = new ProMPropertiesPanel(title);
