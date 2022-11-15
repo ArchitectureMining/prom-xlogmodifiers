@@ -115,15 +115,17 @@ public class XAttributeMapUtils {
 			changeType(map, e.getKey(), e.getValue());
 	}
 	public static XAttribute changeType(XAttributeMap map, String key, Class<? extends XAttribute> type) throws ParseException {
-		if (type.isAssignableFrom(XAttributeBoolean.class))
+		if (type == null)
+			return null;
+		if (XAttributeUtils.isBoolean(type))
 			return changeTypeBoolean(map, key);
-		if (type.isAssignableFrom(XAttributeContinuous.class))
+		if (XAttributeUtils.isContinuous(type))
 			return changeTypeContinuous(map, key);
-		if (type.isAssignableFrom(XAttributeDiscrete.class))
+		if (XAttributeUtils.isDiscrete(type))
 			return changeTypeDiscrete(map, key);
-		if (type.isAssignableFrom(XAttributeTimestamp.class))
+		if (XAttributeUtils.isTimestamp(type))
 			return changeTypeTimestamp(map, key);
-		if (type.isAssignableFrom(XAttributeLiteral.class))
+		if (XAttributeUtils.isLiteral(type))
 			return changeTypeLiteral(map, key);
 		throw new ClassCastException("Could not cast XAttribute to any subclass");
 	}

@@ -2,6 +2,7 @@ package org.processmining.plugins.xlogmodifier;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -18,6 +19,68 @@ import org.deckfour.xes.model.impl.XAttributeLiteralImpl;
 import org.deckfour.xes.model.impl.XAttributeTimestampImpl;
 
 public class XAttributeUtils {
+	public static String getName(XAttribute a) {
+		return getName(a.getClass());
+	}
+	public static String getName(Class<? extends XAttribute> a) {
+		if (a == null)
+			return "null";
+		if (isBoolean(a))
+			return "Boolean";
+		if (isContinuous(a))
+			return "Continuous"; 
+		if (isDiscrete(a))
+			return "Discrete";
+		if (isLiteral(a))
+			return "Literal";
+		if (isTimestamp(a))
+			return "Timestamp";
+		throw new ClassCastException("Could not cast XAttribute to any subclass");
+	}
+	public static Class<? extends XAttribute> fromName(String a) {
+		switch (a) {
+			case "null":
+				return null;
+			case "Boolean":
+				return XAttributeBoolean.class;
+			case "Continuous": 
+				return XAttributeContinuous.class;
+			case "Discrete":
+				return XAttributeDiscrete.class;
+			case "Literal":
+				return XAttributeLiteral.class;
+			case "Timestamp":
+				return XAttributeTimestamp.class;
+			default:
+				throw new ClassCastException("Could not cast XAttribute to any subclass");
+		}
+	}
+	
+	public static HashSet<Class<? extends XAttribute>> getParsableTypes(XAttribute a) {
+		HashSet<Class<? extends XAttribute>> l = new HashSet<Class<? extends XAttribute>>();
+		l.add(XAttributeLiteral.class);
+		
+		try {
+			XAttributeUtils.parseContinuous(a);
+			l.add(XAttributeContinuous.class);
+		} catch (NumberFormatException e) { }
+
+		try {
+			XAttributeUtils.parseDiscrete(a);
+			l.add(XAttributeDiscrete.class);
+		} catch (NumberFormatException e) { }
+
+		try {
+			XAttributeUtils.parseTimestamp(a);
+			l.add(XAttributeTimestamp.class);
+		} catch (ParseException e) { }
+
+		return l;
+	}
+	
+	public static boolean isBoolean(Class<? extends XAttribute> a) {
+		return XAttributeBoolean.class.isAssignableFrom(a);
+	}
 	public static boolean isBoolean(XAttribute a) {
 		return a instanceof XAttributeBoolean;
 	}
@@ -33,6 +96,9 @@ public class XAttributeUtils {
 		return new XAttributeBooleanImpl(a.getKey(), getBoolean(a), a.getExtension());
 	}
 
+	public static boolean isContinuous(Class<? extends XAttribute> a) {
+		return XAttributeContinuous.class.isAssignableFrom(a);
+	}
 	public static boolean isContinuous(XAttribute a) {
 		return a instanceof XAttributeContinuous;
 	}
@@ -48,6 +114,9 @@ public class XAttributeUtils {
 		return new XAttributeContinuousImpl(a.getKey(), getContinuous(a), a.getExtension());
 	}
 
+	public static boolean isDiscrete(Class<? extends XAttribute> a) {
+		return XAttributeDiscrete.class.isAssignableFrom(a);
+	}
 	public static boolean isDiscrete(XAttribute a) {
 		return a instanceof XAttributeDiscrete;
 	}
@@ -63,6 +132,9 @@ public class XAttributeUtils {
 		return new XAttributeDiscreteImpl(a.getKey(), getDiscrete(a), a.getExtension());
 	}
 
+	public static boolean isLiteral(Class<? extends XAttribute> a) {
+		return XAttributeLiteral.class.isAssignableFrom(a);
+	}
 	public static boolean isLiteral(XAttribute a) {
 		return a instanceof XAttributeLiteral;
 	}
@@ -75,6 +147,9 @@ public class XAttributeUtils {
 		return new XAttributeLiteralImpl(a.getKey(), getLiteral(a), a.getExtension());
 	}
 
+	public static boolean isTimestamp(Class<? extends XAttribute> a) {
+		return XAttributeTimestamp.class.isAssignableFrom(a);
+	}
 	public static boolean isTimestamp(XAttribute a) {
 		return a instanceof XAttributeTimestamp;
 	}
