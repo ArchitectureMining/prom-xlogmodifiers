@@ -45,11 +45,11 @@ public class MovePlugin {
 		for (XTrace trace : log) {
 			XAttributeMap map = trace.getAttributes();
 			moved.clear();
-			
+
 			for (String key : params.Keys) {
 				moved.put(key, map.remove(key));
 			}
-			
+
 			for (XEvent event : trace) {
 				event.getAttributes().putAll(moved);
 			}

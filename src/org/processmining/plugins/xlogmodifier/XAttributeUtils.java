@@ -28,7 +28,7 @@ public class XAttributeUtils {
 		if (isBoolean(a))
 			return "Boolean";
 		if (isContinuous(a))
-			return "Continuous"; 
+			return "Continuous";
 		if (isDiscrete(a))
 			return "Discrete";
 		if (isLiteral(a))
@@ -39,27 +39,27 @@ public class XAttributeUtils {
 	}
 	public static Class<? extends XAttribute> fromName(String a) {
 		switch (a) {
-			case "null":
-				return null;
-			case "Boolean":
-				return XAttributeBoolean.class;
-			case "Continuous": 
-				return XAttributeContinuous.class;
-			case "Discrete":
-				return XAttributeDiscrete.class;
-			case "Literal":
-				return XAttributeLiteral.class;
-			case "Timestamp":
-				return XAttributeTimestamp.class;
-			default:
-				throw new ClassCastException("Could not cast XAttribute to any subclass");
+		case "null":
+			return null;
+		case "Boolean":
+			return XAttributeBoolean.class;
+		case "Continuous":
+			return XAttributeContinuous.class;
+		case "Discrete":
+			return XAttributeDiscrete.class;
+		case "Literal":
+			return XAttributeLiteral.class;
+		case "Timestamp":
+			return XAttributeTimestamp.class;
+		default:
+			throw new ClassCastException("Could not cast XAttribute to any subclass");
 		}
 	}
-	
+
 	public static HashSet<Class<? extends XAttribute>> getParsableTypes(XAttribute a) {
 		HashSet<Class<? extends XAttribute>> l = new HashSet<Class<? extends XAttribute>>();
 		l.add(XAttributeLiteral.class);
-		
+
 		try {
 			XAttributeUtils.parseContinuous(a);
 			l.add(XAttributeContinuous.class);
@@ -77,7 +77,7 @@ public class XAttributeUtils {
 
 		return l;
 	}
-	
+
 	public static boolean isBoolean(Class<? extends XAttribute> a) {
 		return XAttributeBoolean.class.isAssignableFrom(a);
 	}
