@@ -19,6 +19,14 @@ import org.deckfour.xes.model.impl.XAttributeLiteralImpl;
 import org.deckfour.xes.model.impl.XAttributeTimestampImpl;
 
 public class XAttributeUtils {
+	public static void checkNull(XAttribute a) {
+		if (a == null)
+			throw new NullPointerException("XAttribute is null");
+	}
+	public static void cannotCast() {
+		throw new ClassCastException("Could not cast XAttribute to any subclass");
+	}
+
 	public static String getName(XAttribute a) {
 		return getName(a.getClass());
 	}
@@ -35,7 +43,7 @@ public class XAttributeUtils {
 			return "Literal";
 		if (isTimestamp(a))
 			return "Timestamp";
-		throw new ClassCastException("Could not cast XAttribute to any subclass");
+		cannotCast();
 	}
 	public static Class<? extends XAttribute> fromName(String a) {
 		switch (a) {
@@ -52,7 +60,7 @@ public class XAttributeUtils {
 		case "Timestamp":
 			return XAttributeTimestamp.class;
 		default:
-			throw new ClassCastException("Could not cast XAttribute to any subclass");
+			cannotCast();
 		}
 	}
 
@@ -176,7 +184,23 @@ public class XAttributeUtils {
 		return new XAttributeTimestampImpl(a.getKey(), getTimestamp(a), a.getExtension());
 	}
 
+	public static XAttribute changeType(XAttribute attr, Class<? extends XAttribute> type) throws ParseException {
+		checkNull(attr);
+		if (isBoolean(type))
+			return changeTypeBoolean(attr);
+		if (isContinuous(type))
+			return changeTypeContinuous(attr);
+		if (isDiscrete(type))
+			return changeTypeDiscrete(attr);
+		if (isTimestamp(type))
+			return changeTypeTimestamp(attr);
+		if (isLiteral(type))
+			return changeTypeLiteral(attr);
+		cannotCast();
+	}
+
 	public static XAttribute changeKey(XAttribute attr, String key) {
+		checkNull(attr);
 		if (isBoolean(attr))
 			return changeKey((XAttributeBoolean)attr, key);
 		if (isContinuous(attr))
@@ -187,7 +211,7 @@ public class XAttributeUtils {
 			return changeKey((XAttributeTimestamp)attr, key);
 		if (isLiteral(attr))
 			return changeKey((XAttributeLiteral)attr, key);
-		throw new ClassCastException("Could not cast XAttribute to any subclass");
+		cannotCast();
 	}
 	public static XAttributeBoolean changeKey(XAttributeBoolean attr, String key) {
 		return new XAttributeBooleanImpl(key, attr.getValue(), attr.getExtension());
