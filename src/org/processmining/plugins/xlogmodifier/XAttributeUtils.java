@@ -44,6 +44,7 @@ public class XAttributeUtils {
 		if (isTimestamp(a))
 			return "Timestamp";
 		cannotCast();
+		return null;
 	}
 	public static Class<? extends XAttribute> fromName(String a) {
 		switch (a) {
@@ -61,6 +62,7 @@ public class XAttributeUtils {
 			return XAttributeTimestamp.class;
 		default:
 			cannotCast();
+			return null;
 		}
 	}
 
@@ -197,6 +199,7 @@ public class XAttributeUtils {
 		if (isLiteral(type))
 			return changeTypeLiteral(attr);
 		cannotCast();
+		return null;
 	}
 
 	public static XAttribute changeKey(XAttribute attr, String key) {
@@ -212,6 +215,7 @@ public class XAttributeUtils {
 		if (isLiteral(attr))
 			return changeKey((XAttributeLiteral)attr, key);
 		cannotCast();
+		return null;
 	}
 	public static XAttributeBoolean changeKey(XAttributeBoolean attr, String key) {
 		return new XAttributeBooleanImpl(key, attr.getValue(), attr.getExtension());
