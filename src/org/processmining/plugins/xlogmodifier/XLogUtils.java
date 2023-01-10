@@ -78,13 +78,12 @@ public class XLogUtils {
 			XAttributeMapUtils.changeKeys(log.getAttributes(), log_attrs);
 
 		for (XTrace trace : log) {
-			if ((trace_attrs != null && !trace_attrs.isEmpty()));
-			XAttributeMapUtils.changeKeys(trace.getAttributes(), trace_attrs);
+			if ((trace_attrs != null && !trace_attrs.isEmpty()))
+				XAttributeMapUtils.changeKeys(trace.getAttributes(), trace_attrs);
 
 			if (event_attrs != null && !event_attrs.isEmpty())
-				for (XEvent event : trace) {
+				for (XEvent event : trace)
 					XAttributeMapUtils.changeKeys(event.getAttributes(), event_attrs);
-				}
 
 			progress.inc();
 		}
